@@ -8,11 +8,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (cep.length !== 8) {
             alert('Por favor, insira um CEP valído com 8 dígitos.');
-
+            return;
+        }
+        const apiUrl = `https://viacep.com.br/ws/${cep}/json/`;
+        
             fetch(apiUrl)
             .then(response => response.json())
-            .then(data=> {
-                if (data.erro){
+            .then(data => {
+                if (data.erro) {
                     alert('CEP não encontrado. Verifique o CEP digitado.');   
                 } else {
                     const addressHTML = `
@@ -27,10 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 }
             })
-            .catch(error =>{
+            .catch(error => {
                 console.error('Erro ao buscar o endereço:', error);
                 alert('Não foi possível obter o endereço. Verifique sua conexão com a internet.');
-            })
-        }
-    })
-})
+            });
+    });
+});
